@@ -29,7 +29,7 @@ async function safeSecretEqual(a, b) {
 
 async function hashPassword(password) {
   const salt = crypto.getRandomValues(new Uint8Array(16));
-  const iterations = 310000;
+  const iterations = 100000;
   const keyMaterial = await crypto.subtle.importKey(
     'raw',
     enc.encode(password),
