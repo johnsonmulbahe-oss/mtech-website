@@ -12,15 +12,16 @@
     <aside class="sidebar">
       <div class="brand">M-TECH</div>
       <p class="role-label">Secure Administration</p>
-      <nav>
-        <a class="active" href="#overview">Overview</a>
-        <a href="#leadership">Leadership</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#messages">Contact Messages</a>
-        <a href="#settings">Site Settings</a>
+      <nav id="admin-nav">
+        <button class="nav-link active" data-section="overview">Overview</button>
+        <button class="nav-link" data-section="leadership">Leadership</button>
+        <button class="nav-link" data-section="services">Services</button>
+        <button class="nav-link" data-section="portfolio">Portfolio</button>
+        <button class="nav-link" data-section="testimonials">Testimonials</button>
+        <button class="nav-link" data-section="messages">Contact Messages</button>
+        <button class="nav-link" data-section="settings">Site Settings</button>
       </nav>
+      <a class="public-link" href="/" target="_blank" rel="noopener">Open Public Website ↗</a>
       <button id="logout-button" class="logout" type="button">Log Out</button>
     </aside>
 
@@ -28,7 +29,7 @@
       <header class="topbar">
         <div>
           <p class="eyebrow">M-TECH ADMIN</p>
-          <h1>Dashboard</h1>
+          <h1 id="page-title">Dashboard</h1>
         </div>
         <div class="user-card">
           <span id="admin-name">Loading…</span>
@@ -36,27 +37,91 @@
         </div>
       </header>
 
-      <section id="overview" class="hero-card">
-        <div>
-          <p class="eyebrow">CONTROL CENTER</p>
-          <h2>Website administration is ready.</h2>
-          <p>Use this secure area to manage the public M-TECH website. Editing tools will be connected one module at a time.</p>
+      <section id="overview-panel" class="section-panel active">
+        <div class="hero-card">
+          <div>
+            <p class="eyebrow">CONTROL CENTER</p>
+            <h2>Website administration is ready.</h2>
+            <p>Manage M-TECH leadership, services, projects, client trust content, messages and website settings from one secure place.</p>
+          </div>
+          <div class="status-pill">Secure session active</div>
         </div>
-        <div class="status-pill">Secure session active</div>
+
+        <div class="stats-grid" id="stats-grid">
+          <article><strong id="stat-leadership">—</strong><span>Leadership Profiles</span></article>
+          <article><strong id="stat-services">—</strong><span>Services</span></article>
+          <article><strong id="stat-portfolio">—</strong><span>Portfolio Items</span></article>
+          <article><strong id="stat-testimonials">—</strong><span>Testimonials</span></article>
+          <article><strong id="stat-messages">—</strong><span>Contact Messages</span></article>
+          <article><strong id="stat-settings">—</strong><span>Site Settings</span></article>
+        </div>
+
+        <section class="quick-grid" aria-label="Admin modules">
+          <button data-open="leadership"><b>Leadership</b><span>Profiles, roles, biographies, photos and order.</span></button>
+          <button data-open="services"><b>Services</b><span>Technology services, descriptions, icons and images.</span></button>
+          <button data-open="portfolio"><b>Portfolio</b><span>Completed projects, results and featured work.</span></button>
+          <button data-open="testimonials"><b>Testimonials</b><span>Approved client trust content and ratings.</span></button>
+          <button data-open="messages"><b>Contact Messages</b><span>Review enquiries and add private admin notes.</span></button>
+          <button data-open="settings"><b>Site Settings</b><span>Manage selected business and website information.</span></button>
+        </section>
       </section>
 
-      <section class="grid" aria-label="Admin modules">
-        <article><h3>Leadership</h3><p>Manage leadership profiles, roles, photos and display order.</p><button disabled>Coming next</button></article>
-        <article><h3>Services</h3><p>Manage technology services and descriptions.</p><button disabled>Coming next</button></article>
-        <article><h3>Portfolio</h3><p>Manage completed projects and featured work.</p><button disabled>Coming next</button></article>
-        <article><h3>Testimonials</h3><p>Manage approved client testimonials.</p><button disabled>Coming next</button></article>
-        <article><h3>Contact Messages</h3><p>Review messages submitted through the website.</p><button disabled>Coming next</button></article>
-        <article><h3>Site Settings</h3><p>Manage selected website text and business information.</p><button disabled>Coming next</button></article>
+      <section id="manager-panel" class="section-panel">
+        <div class="manager-head">
+          <div>
+            <p class="eyebrow" id="module-eyebrow">MANAGEMENT MODULE</p>
+            <h2 id="module-title">Module</h2>
+            <p id="module-description" class="muted"></p>
+          </div>
+          <div class="manager-actions">
+            <button id="refresh-button" class="secondary" type="button">Refresh</button>
+            <button id="new-button" class="primary" type="button">+ Add New</button>
+          </div>
+        </div>
+
+        <div id="module-alert" class="alert" role="status" aria-live="polite"></div>
+
+        <div class="manager-layout">
+          <section class="records-card">
+            <div class="records-toolbar">
+              <input id="search-input" type="search" placeholder="Search records…" autocomplete="off">
+              <span id="record-count" class="count-pill">0 records</span>
+            </div>
+            <div id="records-list" class="records-list"></div>
+          </section>
+
+          <section id="editor-card" class="editor-card">
+            <div class="editor-head">
+              <h3 id="editor-title">Add Record</h3>
+              <button id="close-editor" class="icon-button" type="button" aria-label="Close editor">×</button>
+            </div>
+            <form id="record-form">
+              <input type="hidden" id="record-id" name="id">
+              <div id="form-fields" class="form-grid"></div>
+              <div class="form-actions">
+                <button id="cancel-button" class="secondary" type="button">Cancel</button>
+                <button id="save-button" class="primary" type="submit">Save</button>
+              </div>
+            </form>
+          </section>
+        </div>
       </section>
 
       <p id="session-status" class="session-status" role="status" aria-live="polite"></p>
     </main>
   </div>
+
+  <dialog id="confirm-dialog">
+    <form method="dialog" class="dialog-card">
+      <h3>Delete this record?</h3>
+      <p>This action cannot be undone.</p>
+      <div class="dialog-actions">
+        <button value="cancel" class="secondary">Cancel</button>
+        <button value="confirm" class="danger">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="/admin/dashboard.js" defer></script>
 </body>
 </html>
