@@ -1,0 +1,3 @@
+import {json,currentMember} from '../../_lib/memberAuth.js';
+export async function onRequestGet({request,env}){if(!env.DB)return json({ok:false,error:'Database unavailable.'},500);const user=await currentMember(request,env.DB);if(!user)return json({ok:false,error:'Not authenticated.'},401,{'set-cookie':'mtech_member_session=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0'});return json({ok:true,user:{id:user.id,fullName:user.full_name,email:user.email,institution:user.institution,country:user.country}})}
+export function onRequest(){return json({ok:false,error:'Method not allowed.'},405,{allow:'GET'})}
