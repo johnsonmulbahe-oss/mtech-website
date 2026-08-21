@@ -1,0 +1,32 @@
+M-TECH SECURE ADMIN DASHBOARD — FOUNDATION
+
+Goal:
+Allow the authorized M-TECH administrator to update site content without editing HTML/code.
+
+Planned login:
+/admin/ -> Login with GitHub -> secure OAuth through Cloudflare Pages Functions.
+Only GitHub users with write access to the M-TECH website repository can publish changes.
+
+Admin modules prepared:
+1. Site Settings
+2. Leadership Team
+3. Portfolio / Our Work
+4. Testimonials & Client Trust
+
+How publishing will work:
+Admin edits -> Decap CMS commits content/images to GitHub -> Cloudflare Pages detects the commit -> automatic deployment -> public website updates.
+
+Security principles:
+- No GitHub token stored in browser source code.
+- GitHub OAuth secret stored only as encrypted Cloudflare environment variable.
+- Repository access controls who can publish.
+- Public website remains separate from FEMELTZ ERP and other FEMELTZ systems.
+- Additional Cloudflare Access protection can be added around /admin if desired.
+
+Next deployment requirements:
+- Create/select the M-TECH GitHub repository.
+- Connect Cloudflare Pages to that repository.
+- Create GitHub OAuth App for M-TECH Admin.
+- Add OAuth secrets to Cloudflare.
+- Replace placeholders in admin/config.yml.
+- Wire the JSON content files into the public-site build so admin changes become visible automatically.

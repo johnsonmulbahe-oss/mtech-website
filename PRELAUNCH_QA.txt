@@ -1,0 +1,33 @@
+M-TECH WEBSITE — PRE-LAUNCH QA REPORT
+Version: 3.4 Pre-Launch Candidate
+
+STATUS: READY FOR FINAL OWNER REVIEW — NOT YET PUBLISHED
+
+CHECKED
+[PASS] Official business identity and contact information
+[PASS] Cinematic 2–3 second welcome screen
+[PASS] Full-site motion with reduced-motion accessibility support
+[PASS] Visible header navigation and quick actions
+[PASS] Responsive layout rules for phones, tablets, laptops, desktops and wide screens
+[PASS] Internal navigation anchors
+[PASS] Local images, CSS and JavaScript references
+[PASS] Image alternative text
+[PASS] Service request / quotation WhatsApp workflow structure
+[PASS] Testimonials & Client Trust structure
+[PASS] Portfolio categories and project-detail UX
+[PASS] Leadership section
+[PASS] FAQ and quotation sections
+[PASS] Security headers
+[PASS] Custom branded 404 page
+[PASS] Separation from FEMELTZ ERP / FEMELTZ systems
+
+FINAL LAUNCH ITEMS (when approved)
+1. Create/use M-TECH's own Cloudflare account.
+2. Deploy this folder to Cloudflare Pages.
+3. Accept the free *.pages.dev address.
+4. Test the live URL on mobile and desktop.
+5. Later connect a custom domain when desired.
+
+No domain purchase is required for the initial launch.
+
+Leadership update v3.5: Added Amb. Joseph Flomo (Chief Cyber Security Expert, currently based in Ghana); added location details to CEO and Anthony; upgraded CEO/Founder card to Founder Spotlight styling. Joseph currently uses a designed initials placeholder until a portrait is supplied.

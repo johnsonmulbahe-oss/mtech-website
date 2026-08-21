@@ -1,0 +1,21 @@
+{
+  "name": "M-TECH \u2014 Mulbah Technology Solution Liberia Ltd.",
+  "short_name": "M-TECH",
+  "description": "Professional technology solutions in Liberia.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#040711",
+  "theme_color": "#050816",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
