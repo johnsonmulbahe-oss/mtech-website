@@ -11,6 +11,10 @@
  if(!document.querySelector('link[data-mtech-mobile-fix]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-nav-fix.css?v=21';l.dataset.mtechMobileFix='1';document.head.appendChild(l);
  }
+ // CEO-only permanent delete controls for management records.
+ if(!document.querySelector('script[data-mtech-ceo-delete]')){
+   const s=document.createElement('script');s.src='ceo-delete-controls.js?v=24';s.defer=true;s.dataset.mtechCeoDelete='1';document.head.appendChild(s);
+ }
  document.documentElement.classList.add('mtech-ios26-root');
  document.body?.classList.add('mtech-ios26');
  function installGuideAndTapUX(){
