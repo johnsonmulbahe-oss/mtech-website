@@ -1,21 +1,26 @@
 {
-  "name": "M-TECH \u2014 Mulbah Technology Solution Liberia Ltd.",
+  "name": "M-TECH Management System",
   "short_name": "M-TECH",
-  "description": "Professional technology solutions in Liberia.",
-  "start_url": "./",
+  "description": "Mulbah Technology Solutions Liberia Ltd. business management system",
+  "id": "/mtech-website/app/management.html",
+  "start_url": "/mtech-website/app/management.html",
+  "scope": "/mtech-website/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#040711",
-  "theme_color": "#050816",
+  "theme_color": "#0c1120",
   "icons": [
     {
-      "src": "assets/icon-192.png",
+      "src": "/mtech-website/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "assets/icon-512.png",
+      "src": "/mtech-website/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
