@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>M-TECH Admin Login</title>
+  <link rel="stylesheet" href="/admin/login.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-labelledby="login-title">
+      <div class="brand-row">
+        <div class="brand-mark">M</div>
+        <div>
+          <p class="eyebrow">SECURE ADMINISTRATION</p>
+          <h1 id="login-title">M-TECH Admin Login</h1>
+        </div>
+      </div>
+      <p class="intro">Sign in with the administrator account created during secure setup.</p>
+      <form id="login-form" autocomplete="on">
+        <label for="identity">Username or email</label>
+        <input id="identity" name="identity" type="text" autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <div class="password-wrap">
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button class="show-button" type="button" id="toggle-password" aria-label="Show password">Show</button>
+        </div>
+
+        <button id="login-button" class="primary" type="submit">Sign In</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+      <a class="back-link" href="/">← Return to M-TECH website</a>
+    </section>
+  </main>
+  <script src="/admin/login.js" defer></script>
+</body>
+</html>
