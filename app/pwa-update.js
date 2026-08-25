@@ -19,11 +19,18 @@
  if(!document.querySelector('script[data-mtech-website-link]')){
    const s=document.createElement('script');s.src='website-link.js?v=26';s.defer=true;s.dataset.mtechWebsiteLink='1';document.head.appendChild(s);
  }
+ // CEO pending-user approval notifier.
+ if(!document.querySelector('script[data-mtech-access-notify]')){
+   const s=document.createElement('script');s.src='user-access-notify.js?v=27';s.defer=true;s.dataset.mtechAccessNotify='1';document.head.appendChild(s);
+ }
  document.documentElement.classList.add('mtech-ios26-root');
  document.body?.classList.add('mtech-ios26');
  function installGuideAndTapUX(){
    document.body?.classList.add('mtech-ios26');
    const nav=document.getElementById('nav');
+   if(nav&&!document.getElementById('mtechUserAccessLink')){
+     const a=document.createElement('a');a.id='mtechUserAccessLink';a.className='navbtn';a.href='user-access-admin.html';a.textContent='User Access & QR Invites';nav.appendChild(a);
+   }
    if(nav&&!document.getElementById('mtechIndependentAILink')){
      const a=document.createElement('a');a.id='mtechIndependentAILink';a.className='navbtn';a.href='ai-workspace.html';a.textContent='Independent AI Workspace';nav.appendChild(a);
    }
@@ -31,6 +38,9 @@
      const a=document.createElement('a');a.id='mtechUserGuideLink';a.className='navbtn mtech-guide-chip';a.href='user-guide.html';a.textContent='User Guide / Help Center';nav.appendChild(a);
    }
    const actions=document.querySelector('.topbar .actions');
+   if(actions&&!document.getElementById('mtechAccessTop')){
+     const a=document.createElement('a');a.id='mtechAccessTop';a.className='btn alt small';a.href='user-access-admin.html';a.textContent='User Access';actions.insertBefore(a,actions.firstChild);
+   }
    if(actions&&!document.getElementById('mtechAITop')){
      const a=document.createElement('a');a.id='mtechAITop';a.className='btn alt small';a.href='ai-workspace.html';a.textContent='Independent AI';actions.insertBefore(a,actions.firstChild);
    }
