@@ -1,5 +1,7 @@
 // M-TECH dynamic customer service catalog — resilient cached edition
 (function(){
+ // Apply the same M-TECH brand/motion layer to the public customer request experience.
+ try{if(!document.querySelector('link[data-mtech-brand-ios26]')){const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l)}document.body?.classList.add('mtech-ios26')}catch(_){ }
  const ENDPOINT='https://vsirepejlaytbqhhikev.supabase.co/functions/v1/mtech-submit?catalog=1';
  const CACHE_KEY='mtech-service-catalog-v2';
  let packageMap={};
