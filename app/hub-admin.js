@@ -1,9 +1,15 @@
 (function(){
-const wait=setInterval(()=>{if(!window.SB||!document.getElementById('nav'))return;clearInterval(wait);initHub();},400);
 function e(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function bootHub(){
+ if(typeof SB==='undefined'||!document.getElementById('nav')||!document.querySelector('.content')){setTimeout(bootHub,250);return;}
+ if(document.querySelector('[data-panel="hub"]'))return;
+ initHub();
+}
 function initHub(){
  const nav=document.getElementById('nav');
- const b=document.createElement('button'); b.className='navbtn'; b.dataset.panel='hub'; b.textContent='Problem Solving & Innovation Hub'; nav.insertBefore(b,nav.lastElementChild);
+ const b=document.createElement('button'); b.className='navbtn'; b.dataset.panel='hub'; b.textContent='Problem Solving & Innovation Hub';
+ const qr=Array.from(nav.children).find(x=>x.textContent.includes('QR Distribution'));
+ if(qr)nav.insertBefore(b,qr);else nav.appendChild(b);
  const content=document.querySelector('.content'); const sec=document.createElement('section'); sec.id='hub'; sec.className='panel';
  sec.innerHTML=`<div class="section-title"><div><h2>M-TECH Problem Solving, Innovation & Community Hub</h2><span class="muted">Bring a problem. Collaborate. Innovate. Build a solution.</span></div><div class="actions"><button class="btn small" id="hubNewProblem">Solve a Problem</button><button class="btn alt small" id="hubNewIdea">New Innovation</button><button class="btn alt small" id="hubNewAccount">Manage Accounts</button></div></div>
  <div class="cards" id="hubMetrics"></div>
@@ -37,4 +43,5 @@ function knowledgeForm(){show('Add to Knowledge Bank',`<div class="field"><label
 window.hubSaveKnowledge=async()=>{const {data:me}=await SB.from('hub_accounts').select('id').eq('auth_user_id',session.user.id).maybeSingle();const {error}=await SB.from('hub_knowledge').insert({title:document.getElementById('hkTitle').value.trim(),category:document.getElementById('hkCat').value.trim(),problem:document.getElementById('hkProblem').value.trim(),cause:document.getElementById('hkCause').value.trim(),solution:document.getElementById('hkSolution').value.trim(),created_by:me?.id||null,visibility:'community',verified:true});if(error)return alert(error.message);closeModal();loadHub()};
 function opportunityForm(){show('Add Opportunity',`<div class="grid2"><div class="field"><label>Type</label><select id="hoType"><option>internship</option><option>scholarship</option><option>training</option><option>job</option><option>competition</option><option>project</option></select></div><div class="field"><label>Deadline</label><input id="hoDeadline" type="date"></div></div><div class="field"><label>Title</label><input id="hoTitle"></div><div class="field"><label>Organization</label><input id="hoOrg"></div><div class="field"><label>Description</label><textarea id="hoDesc"></textarea></div><div class="field"><label>Application link</label><input id="hoUrl"></div><button class="btn" onclick="hubSaveOpportunity()">Publish Opportunity</button>`)}
 window.hubSaveOpportunity=async()=>{const {error}=await SB.from('hub_opportunities').insert({opportunity_type:document.getElementById('hoType').value,title:document.getElementById('hoTitle').value.trim(),organization:document.getElementById('hoOrg').value.trim(),description:document.getElementById('hoDesc').value.trim(),application_url:document.getElementById('hoUrl').value.trim(),deadline:document.getElementById('hoDeadline').value||null,status:'active'});if(error)return alert(error.message);closeModal();loadHub()};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootHub);else bootHub();
 })();
