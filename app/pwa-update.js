@@ -15,6 +15,10 @@
  if(!document.querySelector('script[data-mtech-ceo-delete]')){
    const s=document.createElement('script');s.src='ceo-delete-controls.js?v=24';s.defer=true;s.dataset.mtechCeoDelete='1';document.head.appendChild(s);
  }
+ // Editable public website shortcut.
+ if(!document.querySelector('script[data-mtech-website-link]')){
+   const s=document.createElement('script');s.src='website-link.js?v=26';s.defer=true;s.dataset.mtechWebsiteLink='1';document.head.appendChild(s);
+ }
  document.documentElement.classList.add('mtech-ios26-root');
  document.body?.classList.add('mtech-ios26');
  function installGuideAndTapUX(){
