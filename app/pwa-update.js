@@ -7,6 +7,10 @@
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
  }
+ // iPhone/compact-screen navigation anti-jam layer.
+ if(!document.querySelector('link[data-mtech-mobile-fix]')){
+   const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-nav-fix.css?v=21';l.dataset.mtechMobileFix='1';document.head.appendChild(l);
+ }
  document.documentElement.classList.add('mtech-ios26-root');
  document.body?.classList.add('mtech-ios26');
  function installGuideAndTapUX(){
