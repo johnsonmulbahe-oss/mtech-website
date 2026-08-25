@@ -1,0 +1,5 @@
+M-TECH Admin Dashboard deployment trigger
+
+Purpose: force Cloudflare Pages to detect the latest admin-dashboard-foundation branch changes after the full management-module update.
+
+Latest management-module build should include Leadership, Services, Portfolio, Testimonials, Contact Messages and Site Settings.
