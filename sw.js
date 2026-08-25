@@ -1,24 +1,6 @@
-const CACHE='mtech-v2-20260825';
-const CORE=['./','./index.html','./mtech-logo.png','./icon-192.png','./icon-512.png','./manifest.webmanifest','./app/management.html','./app/management.css','./app/management.js','./app/management-patch.js','./app/production-patch.js','./app/pwa-update.js','./app/request-v7.html','./app/thank-you.html','./app/share-qr.html','./app/qr-distribution.html'];
-self.addEventListener('install',event=>{
-  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));
-  self.skipWaiting();
-});
-self.addEventListener('activate',event=>{
-  event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
-  self.clients.claim();
-});
+const CACHE='mtech-v3-ux-20260825';
+const CORE=['./','./index.html','./mtech-logo.png','./icon-192.png','./icon-512.png','./manifest.webmanifest','./app/management.html','./app/management.css','./app/management.js','./app/management-patch.js','./app/production-patch.js','./app/pwa-update.js','./app/ux-system.js','./app/request-v7.html','./app/thank-you.html','./app/share-qr.html','./app/qr-distribution.html'];
+self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).catch(()=>{}));self.skipWaiting()});
+self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim()});
 self.addEventListener('message',event=>{if(event.data==='SKIP_WAITING')self.skipWaiting()});
-self.addEventListener('fetch',event=>{
-  if(event.request.method!=='GET')return;
-  const req=event.request;
-  if(req.mode==='navigate'){
-    event.respondWith(fetch(req,{cache:'no-store'}).then(response=>{
-      const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(req,copy));return response;
-    }).catch(()=>caches.match(req).then(r=>r||caches.match('./app/management.html'))));
-    return;
-  }
-  event.respondWith(fetch(req).then(response=>{
-    const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(req,copy));return response;
-  }).catch(()=>caches.match(req)));
-});
+self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;const req=event.request;if(req.mode==='navigate'){event.respondWith(fetch(req,{cache:'no-store'}).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(req,copy));return response}).catch(()=>caches.match(req).then(r=>r||caches.match('./app/management.html'))));return}event.respondWith(fetch(req,{cache:'no-store'}).then(response=>{const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(req,copy));return response}).catch(()=>caches.match(req)))});
