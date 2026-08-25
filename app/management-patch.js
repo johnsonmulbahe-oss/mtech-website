@@ -48,3 +48,79 @@
     alert('This action is not yet recognized: '+a+'. Please report it so M-TECH can correct it.');
   };
 })();
+
+// M-TECH performance boost: progressive/lazy module loading
+(function(){
+  if(typeof window.loadAll!=='function' || typeof window.openPanel!=='function') return;
+  const originalLoadAll=window.loadAll;
+  const originalOpenPanel=window.openPanel;
+  const loadedAt=new Map();
+  const TTL=45000;
+  let backgroundStarted=false;
+
+  function activePanel(){return document.querySelector('.panel.active')?.id||'dashboard'}
+  function fresh(panel){const t=loadedAt.get(panel)||0;return Date.now()-t<TTL}
+  function mark(panel){loadedAt.set(panel,Date.now())}
+  function setTitle(text){const el=document.getElementById('pageTitle');if(el)el.textContent=text}
+
+  async function loadPanel(panel,force=false,background=false){
+    if(!force&&fresh(panel))return;
+    const oldTitle=document.getElementById('pageTitle')?.textContent||'';
+    if(!background)setTitle(oldTitle+' · Loading…');
+    try{
+      if(panel==='dashboard'){
+        const [snap,requests,appointments]=await Promise.all([
+          PATCH_SB.rpc('ceo_dashboard_snapshot'),
+          PATCH_SB.from('service_requests').select('*,customers(full_name,phone,whatsapp,email,area)').order('created_at',{ascending:false}).limit(20),
+          PATCH_SB.from('appointments').select('*').order('scheduled_at',{ascending:true}).limit(20)
+        ]);
+        state.metrics=snap.data||{}; state.requests=requests.data||[]; state.appointments=appointments.data||[];
+        renderDashboard(); mark(panel);
+      }else if(panel==='requests'){
+        const {data,error}=await PATCH_SB.from('service_requests').select('*,customers(full_name,phone,whatsapp,email,area)').order('created_at',{ascending:false}).limit(60); if(error)throw error;
+        state.requests=data||[]; renderRequests(); mark(panel);
+      }else if(panel==='jobs'){
+        const {data,error}=await PATCH_SB.from('jobs').select('*').order('created_at',{ascending:false}).limit(60);if(error)throw error;state.jobs=data||[];renderJobs();mark(panel);
+      }else if(panel==='quotes'){
+        const {data,error}=await PATCH_SB.from('quotations').select('*').order('created_at',{ascending:false}).limit(60);if(error)throw error;state.quotes=data||[];renderQuotes();mark(panel);
+      }else if(panel==='invoices'){
+        const {data,error}=await PATCH_SB.from('invoices').select('*').order('created_at',{ascending:false}).limit(60);if(error)throw error;state.invoices=data||[];renderInvoices();mark(panel);
+      }else if(panel==='customers'){
+        const [c,o]=await Promise.all([PATCH_SB.from('customers').select('*').order('created_at',{ascending:false}).limit(60),PATCH_SB.from('organizations').select('*').order('created_at',{ascending:false}).limit(60)]);if(c.error)throw c.error;if(o.error)throw o.error;state.customers=c.data||[];state.orgs=o.data||[];renderCustomers();mark(panel);
+      }else if(panel==='staff'){
+        const {data,error}=await PATCH_SB.from('staff').select('*').order('created_at',{ascending:false}).limit(60);if(error)throw error;state.staff=data||[];renderStaff();mark(panel);
+      }else if(panel==='schedule'){
+        const [a,r]=await Promise.all([PATCH_SB.from('appointments').select('*').order('scheduled_at',{ascending:true}).limit(60),PATCH_SB.from('reminders').select('*').order('due_at',{ascending:true}).limit(60)]);if(a.error)throw a.error;if(r.error)throw r.error;state.appointments=a.data||[];state.reminders=r.data||[];renderSchedule();mark(panel);
+      }else if(panel==='finance'){
+        const [e,a]=await Promise.all([PATCH_SB.from('expenses').select('*').order('expense_date',{ascending:false}).limit(60),PATCH_SB.from('assets').select('*').order('created_at',{ascending:false}).limit(60)]);if(e.error)throw e.error;if(a.error)throw a.error;state.expenses=e.data||[];state.assets=a.data||[];renderFinance();mark(panel);
+      }else if(panel==='settings'){
+        const [s,st]=await Promise.all([PATCH_SB.from('service_categories').select('*').order('sort_order',{ascending:true}).limit(100),PATCH_SB.from('app_settings').select('*').order('updated_at',{ascending:false}).limit(100)]);if(s.error)throw s.error;if(st.error)throw st.error;state.services=s.data||[];state.settings=st.data||[];renderSettings();mark(panel);
+      }else if(panel==='notifications'){
+        const [n,a]=await Promise.all([PATCH_SB.from('notifications').select('*').order('created_at',{ascending:false}).limit(60),PATCH_SB.from('audit_log').select('*').order('created_at',{ascending:false}).limit(60)]);if(n.error)throw n.error;if(a.error)throw a.error;state.notifications=n.data||[];state.audit=a.data||[];renderNotifications();mark(panel);
+      }
+    }catch(err){console.warn('M-TECH fast loader fallback',panel,err);if(panel===activePanel()&&!background){try{await originalLoadAll(true)}catch(_){}}
+    }finally{
+      if(!background&&document.getElementById('pageTitle')?.textContent.includes('Loading…'))setTitle(oldTitle);
+    }
+  }
+
+  window.loadAll=async function(silent=false){return loadPanel(activePanel(),true,!!silent)};
+  window.openPanel=function(id,title){originalOpenPanel(id,title);if(id&&id!=='hub')loadPanel(id,false,false)};
+
+  function startBackgroundWarmup(){
+    if(backgroundStarted)return;backgroundStarted=true;
+    const queue=['requests','jobs','quotes','invoices','customers','staff','schedule','finance','settings','notifications'];
+    let i=0;
+    const next=()=>{
+      if(document.hidden)return setTimeout(next,1500);
+      if(i>=queue.length)return;
+      const panel=queue[i++];
+      if(!fresh(panel))loadPanel(panel,false,true).finally(()=>setTimeout(next,350)); else setTimeout(next,150);
+    };
+    setTimeout(next,1200);
+  }
+
+  const obs=new MutationObserver(()=>{const app=document.getElementById('appView');if(app&&!app.classList.contains('hidden'))startBackgroundWarmup()});
+  obs.observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['class']});
+  setTimeout(()=>{const app=document.getElementById('appView');if(app&&!app.classList.contains('hidden'))startBackgroundWarmup()},500);
+})();
