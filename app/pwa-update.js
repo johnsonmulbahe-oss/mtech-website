@@ -3,6 +3,10 @@
  if(!document.querySelector('script[data-mtech-login-resilience]')){
    const s=document.createElement('script');s.src='login-resilience.js?v=18';s.defer=true;s.dataset.mtechLoginResilience='1';document.head.appendChild(s);
  }
+ // Passwordless email sign-in for existing approved users only.
+ if(!document.querySelector('script[data-mtech-email-login]')){
+   const s=document.createElement('script');s.src='email-login.js?v=28';s.defer=true;s.dataset.mtechEmailLogin='1';document.head.appendChild(s);
+ }
  // Brand + motion layer. Safe to load on every management session.
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
