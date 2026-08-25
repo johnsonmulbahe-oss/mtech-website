@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>M-TECH Admin Setup</title>
+  <link rel="stylesheet" href="/admin/setup.css">
+  <link rel="icon" href="/icon-64.png">
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-labelledby="setup-title">
+      <div class="brand">
+        <img src="/mtech-logo.png" alt="M-TECH logo">
+        <div>
+          <p class="eyebrow">Secure Administration</p>
+          <h1 id="setup-title">Create the first M-TECH administrator</h1>
+        </div>
+      </div>
+
+      <p class="intro">This one-time setup creates the first administrator account. Your password is hashed on the server before it is stored.</p>
+
+      <form id="setup-form" novalidate>
+        <label>
+          <span>Full name</span>
+          <input name="fullName" autocomplete="name" maxlength="100" required>
+        </label>
+
+        <label>
+          <span>Username</span>
+          <input name="username" autocomplete="username" minlength="3" maxlength="40" pattern="[A-Za-z0-9._-]+" required>
+        </label>
+
+        <label>
+          <span>Email address</span>
+          <input name="email" type="email" autocomplete="email" maxlength="160">
+        </label>
+
+        <label>
+          <span>Admin password</span>
+          <input name="password" type="password" autocomplete="new-password" minlength="12" required>
+          <small>Use at least 12 characters. Do not reuse your GitHub or Cloudflare password.</small>
+        </label>
+
+        <label>
+          <span>Confirm admin password</span>
+          <input name="confirmPassword" type="password" autocomplete="new-password" minlength="12" required>
+        </label>
+
+        <label>
+          <span>Temporary setup secret</span>
+          <input name="setupSecret" type="password" autocomplete="off" required>
+          <small>Use the secret you saved in Cloudflare as <strong>ADMIN_SETUP_SECRET</strong>.</small>
+        </label>
+
+        <button id="submit-button" type="submit">Create Administrator</button>
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+  <script src="/admin/setup.js" defer></script>
+</body>
+</html>
