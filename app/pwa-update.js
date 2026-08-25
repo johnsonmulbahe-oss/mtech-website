@@ -20,10 +20,16 @@
  function installGuideAndTapUX(){
    document.body?.classList.add('mtech-ios26');
    const nav=document.getElementById('nav');
+   if(nav&&!document.getElementById('mtechIndependentAILink')){
+     const a=document.createElement('a');a.id='mtechIndependentAILink';a.className='navbtn';a.href='ai-workspace.html';a.textContent='Independent AI Workspace';nav.appendChild(a);
+   }
    if(nav&&!document.getElementById('mtechUserGuideLink')){
      const a=document.createElement('a');a.id='mtechUserGuideLink';a.className='navbtn mtech-guide-chip';a.href='user-guide.html';a.textContent='User Guide / Help Center';nav.appendChild(a);
    }
    const actions=document.querySelector('.topbar .actions');
+   if(actions&&!document.getElementById('mtechAITop')){
+     const a=document.createElement('a');a.id='mtechAITop';a.className='btn alt small';a.href='ai-workspace.html';a.textContent='Independent AI';actions.insertBefore(a,actions.firstChild);
+   }
    if(actions&&!document.getElementById('mtechGuideTop')){
      const a=document.createElement('a');a.id='mtechGuideTop';a.className='btn alt small mtech-guide-chip';a.href='user-guide.html';a.textContent='Guide';actions.insertBefore(a,actions.firstChild);
    }
