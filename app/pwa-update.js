@@ -1,4 +1,8 @@
 (function(){
+ // Load cross-device resilient login patch without delaying the main page.
+ if(!document.querySelector('script[data-mtech-login-resilience]')){
+   const s=document.createElement('script');s.src='login-resilience.js?v=18';s.defer=true;s.dataset.mtechLoginResilience='1';document.head.appendChild(s);
+ }
  if(!('serviceWorker' in navigator)) return;
  let reloading=false;
  async function register(){
