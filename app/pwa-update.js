@@ -41,6 +41,14 @@
  }
  document.documentElement.classList.add('mtech-ios26-root');
  document.body?.classList.add('mtech-ios26');
+ function installCeoRecovery(){
+   let isCeo=false;try{isCeo=typeof profile!=='undefined'&&profile&&String(profile.role||'').toLowerCase()==='ceo'&&profile.active!==false}catch(_){ }
+   if(!isCeo)return;
+   const nav=document.getElementById('nav');
+   if(nav&&!document.getElementById('mtechPasswordRecoveryAdminLink')){const a=document.createElement('a');a.id='mtechPasswordRecoveryAdminLink';a.className='navbtn';a.href='password-recovery-admin.html';a.textContent='Password Recovery Center';nav.appendChild(a)}
+   const actions=document.querySelector('.topbar .actions');
+   if(actions&&!document.getElementById('mtechPasswordRecoveryTop')){const a=document.createElement('a');a.id='mtechPasswordRecoveryTop';a.className='btn alt small';a.href='password-recovery-admin.html';a.textContent='Password Recovery';actions.insertBefore(a,actions.firstChild)}
+ }
  function installGuideAndTapUX(){
    document.body?.classList.add('mtech-ios26');
    const nav=document.getElementById('nav');
@@ -63,6 +71,7 @@
    if(actions&&!document.getElementById('mtechGuideTop')){
      const a=document.createElement('a');a.id='mtechGuideTop';a.className='btn alt small mtech-guide-chip';a.href='user-guide.html';a.textContent='Guide';actions.insertBefore(a,actions.firstChild);
    }
+   installCeoRecovery();
    document.addEventListener('pointerdown',e=>{
      const el=e.target.closest('.btn,.navbtn,.settings-tab,.svc,button');if(!el)return;
      const r=el.getBoundingClientRect();el.style.setProperty('--x',((e.clientX-r.left)/Math.max(r.width,1)*100)+'%');el.style.setProperty('--y',((e.clientY-r.top)/Math.max(r.height,1)*100)+'%');el.classList.add('mtech-pressed');
@@ -70,6 +79,7 @@
    ['pointerup','pointercancel','pointerleave'].forEach(type=>document.addEventListener(type,e=>e.target.closest?.('.mtech-pressed')?.classList.remove('mtech-pressed'),{passive:true}));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',installGuideAndTapUX,{once:true});else installGuideAndTapUX();
+ const recoveryTimer=setInterval(()=>{installCeoRecovery();if(document.getElementById('mtechPasswordRecoveryAdminLink'))clearInterval(recoveryTimer)},1000);setTimeout(()=>clearInterval(recoveryTimer),30000);
  if(!('serviceWorker' in navigator)) return;
  let reloading=false;
  async function register(){
