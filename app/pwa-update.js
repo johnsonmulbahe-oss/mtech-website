@@ -23,6 +23,10 @@
  if(!document.querySelector('script[data-mtech-mobile-dock]')){
    const s=document.createElement('script');s.src='mobile-control-dock.js?v=29';s.defer=true;s.dataset.mtechMobileDock='1';document.head.appendChild(s);
  }
+ // Make M-TECH AI and connection controls movable/compact so they never block records.
+ if(!document.querySelector('script[data-mtech-ai-float-controls]')){
+   const s=document.createElement('script');s.src='ai-floating-controls.js?v=30';s.defer=true;s.dataset.mtechAiFloatControls='1';document.head.appendChild(s);
+ }
  // CEO-only permanent delete controls for management records.
  if(!document.querySelector('script[data-mtech-ceo-delete]')){
    const s=document.createElement('script');s.src='ceo-delete-controls.js?v=24';s.defer=true;s.dataset.mtechCeoDelete='1';document.head.appendChild(s);
