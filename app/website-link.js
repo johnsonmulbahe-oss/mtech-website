@@ -1,6 +1,7 @@
 // M-TECH public website and core module shortcuts; public website URL is read from editable company_profile settings.
 (function(){
  const FALLBACK='https://johnsonmulbahe-oss.github.io/mtech-website/';
+ if(!document.querySelector('script[data-mtech-terms-gate]')){const s=document.createElement('script');s.src='terms-gate.js?v=42';s.defer=true;s.dataset.mtechTermsGate='1';document.head.appendChild(s)}
  async function getUrl(){
    try{
      if(globalThis.SB){
@@ -18,12 +19,16 @@
    const nav=document.getElementById('nav');
    if(nav&&!document.getElementById('mtechWebsiteNav')){const a=document.createElement('a');a.id='mtechWebsiteNav';a.className='navbtn';a.href=url;a.target='_blank';a.rel='noopener';a.textContent='M-TECH Website';nav.appendChild(a)}
    addNav(nav,'mtechMarketplaceNav','Technology Marketplace','marketplace.html');
+   addNav(nav,'mtechStoreGuideNav','Store Setup Guide','marketplace-store-guide.html');
+   addNav(nav,'mtechMarketplaceRulesNav','Marketplace Rules','marketplace-rules.html');
+   addNav(nav,'mtechTermsCenterNav','Terms & Conditions','terms-center.html');
    addNav(nav,'mtechTrustCenterNav','Trust & Assurance Center','trust-center.html');
    addNav(nav,'mtechSponsorsNavLite','Sponsors & Partners','sponsors-partners.html');
    const actions=document.querySelector('.topbar .actions');
    if(actions&&!document.getElementById('mtechWebsiteTop')){const a=document.createElement('a');a.id='mtechWebsiteTop';a.className='btn alt small';a.href=url;a.target='_blank';a.rel='noopener';a.textContent='Website';actions.appendChild(a)}
    addTop(actions,'mtechMarketplaceTopLite','Marketplace','marketplace.html');
    addTop(actions,'mtechTrustTopLite','Trust & Safety','trust-center.html');
+   addTop(actions,'mtechTermsTopLite','Terms','terms-center.html');
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
 })();
