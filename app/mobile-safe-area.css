@@ -1,0 +1,16 @@
+/* M-TECH v29 mobile safe-area + non-blocking controls */
+:root{--mtech-safe-bottom:max(env(safe-area-inset-bottom,0px),12px)}
+@media (max-width:820px){
+  html{scroll-padding-bottom:130px}
+  body{padding-bottom:calc(var(--mtech-safe-bottom) + 104px)!important}
+  .main,.content,.panel,.login{padding-bottom:calc(var(--mtech-safe-bottom) + 36px)}
+  .modal{max-height:calc(100dvh - var(--mtech-safe-bottom) - 24px);overflow:auto}
+  .floating-back{bottom:calc(var(--mtech-safe-bottom) + 82px)!important;right:14px!important;z-index:45!important;touch-action:none;transition:opacity .2s ease,transform .2s ease}
+  .floating-back.mtech-collapsed{width:22px!important;height:44px!important;border-radius:14px 0 0 14px!important;right:0!important;opacity:.65!important;font-size:0!important}
+  .floating-back.mtech-collapsed:after{content:'‹';font-size:22px!important;line-height:1;color:#fff}
+  .mtech-fixed-bottom,.bottom-actions,.sticky-actions{bottom:calc(var(--mtech-safe-bottom) + 76px)!important}
+  input,textarea,select,button,a{scroll-margin-bottom:150px}
+}
+@media (display-mode:standalone){
+  @media (max-width:820px){body{padding-bottom:calc(var(--mtech-safe-bottom) + 34px)!important}.floating-back{bottom:calc(var(--mtech-safe-bottom) + 18px)!important}}
+}
