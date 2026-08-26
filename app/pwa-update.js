@@ -7,6 +7,10 @@
  if(!document.querySelector('script[data-mtech-email-login]')){
    const s=document.createElement('script');s.src='email-login.js?v=28';s.defer=true;s.dataset.mtechEmailLogin='1';document.head.appendChild(s);
  }
+ // Secure password recovery for approved CEO/staff accounts.
+ if(!document.querySelector('script[data-mtech-password-recovery]')){
+   const s=document.createElement('script');s.src='password-recovery.js?v=32';s.defer=true;s.dataset.mtechPasswordRecovery='1';document.head.appendChild(s);
+ }
  // Brand + motion layer. Safe to load on every management session.
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
