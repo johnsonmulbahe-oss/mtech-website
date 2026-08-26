@@ -11,6 +11,10 @@
  if(!document.querySelector('script[data-mtech-password-recovery]')){
    const s=document.createElement('script');s.src='password-recovery.js?v=32';s.defer=true;s.dataset.mtechPasswordRecovery='1';document.head.appendChild(s);
  }
+ // Serious CEO-facing integrity monitoring for runtime/network/auth/database/PWA/sync issues.
+ if(!document.querySelector('script[data-mtech-system-integrity]')){
+   const s=document.createElement('script');s.src='system-integrity-monitor.js?v=35';s.defer=true;s.dataset.mtechSystemIntegrity='1';document.head.appendChild(s);
+ }
  // Brand + motion layer.
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
@@ -40,6 +44,7 @@
    if(!isCeo)return;
    const nav=document.getElementById('nav');
    if(nav&&!document.getElementById('mtechPasswordRecoveryAdminLink')){const a=document.createElement('a');a.id='mtechPasswordRecoveryAdminLink';a.className='navbtn';a.href='password-recovery-admin.html';a.textContent='Password Recovery Center';nav.appendChild(a)}
+   if(nav&&!document.getElementById('mtechSystemAlertsLink')){const a=document.createElement('a');a.id='mtechSystemAlertsLink';a.className='navbtn';a.href='system-alert-center.html';a.textContent='CEO System Alerts';nav.appendChild(a)}
    const actions=document.querySelector('.topbar .actions');
    if(actions&&!document.getElementById('mtechPasswordRecoveryTop')){const a=document.createElement('a');a.id='mtechPasswordRecoveryTop';a.className='btn alt small';a.href='password-recovery-admin.html';a.textContent='Password Recovery';actions.insertBefore(a,actions.firstChild)}
  }
