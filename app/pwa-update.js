@@ -15,27 +15,21 @@
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
  }
- // iPhone/compact-screen navigation anti-jam layer.
  if(!document.querySelector('link[data-mtech-mobile-fix]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-nav-fix.css?v=21';l.dataset.mtechMobileFix='1';document.head.appendChild(l);
  }
- // Keep content and the fixed Back control clear of iPhone/Safari bottom UI.
  if(!document.querySelector('link[data-mtech-safe-area]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-safe-area.css?v=31';l.dataset.mtechSafeArea='1';document.head.appendChild(l);
  }
- // Only M-TECH AI and connection controls are movable/compact. Back remains fixed.
  if(!document.querySelector('script[data-mtech-ai-float-controls]')){
    const s=document.createElement('script');s.src='ai-floating-controls.js?v=31';s.defer=true;s.dataset.mtechAiFloatControls='1';document.head.appendChild(s);
  }
- // CEO-only permanent delete controls for management records.
  if(!document.querySelector('script[data-mtech-ceo-delete]')){
    const s=document.createElement('script');s.src='ceo-delete-controls.js?v=24';s.defer=true;s.dataset.mtechCeoDelete='1';document.head.appendChild(s);
  }
- // Editable public website shortcut.
  if(!document.querySelector('script[data-mtech-website-link]')){
    const s=document.createElement('script');s.src='website-link.js?v=26';s.defer=true;s.dataset.mtechWebsiteLink='1';document.head.appendChild(s);
  }
- // CEO pending-user approval notifier.
  if(!document.querySelector('script[data-mtech-access-notify]')){
    const s=document.createElement('script');s.src='user-access-notify.js?v=27';s.defer=true;s.dataset.mtechAccessNotify='1';document.head.appendChild(s);
  }
@@ -52,6 +46,9 @@
  function installGuideAndTapUX(){
    document.body?.classList.add('mtech-ios26');
    const nav=document.getElementById('nav');
+   if(nav&&!document.getElementById('mtechEducationCenterLink')){
+     const a=document.createElement('a');a.id='mtechEducationCenterLink';a.className='navbtn';a.href='education-center.html';a.textContent='Education & Technology Center';nav.appendChild(a);
+   }
    if(nav&&!document.getElementById('mtechUserAccessLink')){
      const a=document.createElement('a');a.id='mtechUserAccessLink';a.className='navbtn';a.href='user-access-admin.html';a.textContent='User Access & QR Invites';nav.appendChild(a);
    }
@@ -62,6 +59,9 @@
      const a=document.createElement('a');a.id='mtechUserGuideLink';a.className='navbtn mtech-guide-chip';a.href='user-guide.html';a.textContent='User Guide / Help Center';nav.appendChild(a);
    }
    const actions=document.querySelector('.topbar .actions');
+   if(actions&&!document.getElementById('mtechEducationTop')){
+     const a=document.createElement('a');a.id='mtechEducationTop';a.className='btn alt small';a.href='education-center.html';a.textContent='Education';actions.insertBefore(a,actions.firstChild);
+   }
    if(actions&&!document.getElementById('mtechAccessTop')){
      const a=document.createElement('a');a.id='mtechAccessTop';a.className='btn alt small';a.href='user-access-admin.html';a.textContent='User Access';actions.insertBefore(a,actions.firstChild);
    }
@@ -88,11 +88,8 @@
      const applyWaiting=()=>{if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING')};
      applyWaiting();
      reg.addEventListener('updatefound',()=>{
-       const worker=reg.installing;
-       if(!worker)return;
-       worker.addEventListener('statechange',()=>{
-         if(worker.state==='installed'&&navigator.serviceWorker.controller){worker.postMessage('SKIP_WAITING')}
-       });
+       const worker=reg.installing;if(!worker)return;
+       worker.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller){worker.postMessage('SKIP_WAITING')}});
      });
      setInterval(()=>reg.update().catch(()=>{}),15*60*1000);
      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')reg.update().catch(()=>{})});
