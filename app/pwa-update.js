@@ -11,7 +11,7 @@
  if(!document.querySelector('script[data-mtech-password-recovery]')){
    const s=document.createElement('script');s.src='password-recovery.js?v=32';s.defer=true;s.dataset.mtechPasswordRecovery='1';document.head.appendChild(s);
  }
- // Brand + motion layer. Safe to load on every management session.
+ // Brand + motion layer.
  if(!document.querySelector('link[data-mtech-brand-ios26]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='brand-ios26.css?v=20';l.dataset.mtechBrandIos26='1';document.head.appendChild(l);
  }
@@ -49,6 +49,9 @@
    if(nav&&!document.getElementById('mtechEducationCenterLink')){
      const a=document.createElement('a');a.id='mtechEducationCenterLink';a.className='navbtn';a.href='education-center.html';a.textContent='Education & Technology Center';nav.appendChild(a);
    }
+   if(nav&&!document.getElementById('mtechQrPermissionLink')){
+     const a=document.createElement('a');a.id='mtechQrPermissionLink';a.className='navbtn';a.href='qr-permission-center.html';a.textContent='QR Permission & Outreach Center';nav.appendChild(a);
+   }
    if(nav&&!document.getElementById('mtechUserAccessLink')){
      const a=document.createElement('a');a.id='mtechUserAccessLink';a.className='navbtn';a.href='user-access-admin.html';a.textContent='User Access & QR Invites';nav.appendChild(a);
    }
@@ -61,6 +64,9 @@
    const actions=document.querySelector('.topbar .actions');
    if(actions&&!document.getElementById('mtechEducationTop')){
      const a=document.createElement('a');a.id='mtechEducationTop';a.className='btn alt small';a.href='education-center.html';a.textContent='Education';actions.insertBefore(a,actions.firstChild);
+   }
+   if(actions&&!document.getElementById('mtechOutreachTop')){
+     const a=document.createElement('a');a.id='mtechOutreachTop';a.className='btn alt small';a.href='qr-permission-center.html';a.textContent='QR Outreach';actions.insertBefore(a,actions.firstChild);
    }
    if(actions&&!document.getElementById('mtechAccessTop')){
      const a=document.createElement('a');a.id='mtechAccessTop';a.className='btn alt small';a.href='user-access-admin.html';a.textContent='User Access';actions.insertBefore(a,actions.firstChild);
@@ -85,12 +91,8 @@
  async function register(){
    try{
      const reg=await navigator.serviceWorker.register('../sw.js',{updateViaCache:'none'});
-     const applyWaiting=()=>{if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING')};
-     applyWaiting();
-     reg.addEventListener('updatefound',()=>{
-       const worker=reg.installing;if(!worker)return;
-       worker.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller){worker.postMessage('SKIP_WAITING')}});
-     });
+     const applyWaiting=()=>{if(reg.waiting)reg.waiting.postMessage('SKIP_WAITING')};applyWaiting();
+     reg.addEventListener('updatefound',()=>{const worker=reg.installing;if(!worker)return;worker.addEventListener('statechange',()=>{if(worker.state==='installed'&&navigator.serviceWorker.controller){worker.postMessage('SKIP_WAITING')}})});
      setInterval(()=>reg.update().catch(()=>{}),15*60*1000);
      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')reg.update().catch(()=>{})});
      window.addEventListener('focus',()=>reg.update().catch(()=>{}));
