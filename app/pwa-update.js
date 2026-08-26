@@ -15,6 +15,10 @@
  if(!document.querySelector('link[data-mtech-mobile-fix]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-nav-fix.css?v=21';l.dataset.mtechMobileFix='1';document.head.appendChild(l);
  }
+ // Keep content and floating controls clear of iPhone/Safari bottom UI.
+ if(!document.querySelector('link[data-mtech-safe-area]')){
+   const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-safe-area.css?v=29';l.dataset.mtechSafeArea='1';document.head.appendChild(l);
+ }
  // CEO-only permanent delete controls for management records.
  if(!document.querySelector('script[data-mtech-ceo-delete]')){
    const s=document.createElement('script');s.src='ceo-delete-controls.js?v=24';s.defer=true;s.dataset.mtechCeoDelete='1';document.head.appendChild(s);
