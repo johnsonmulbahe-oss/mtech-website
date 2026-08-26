@@ -18,6 +18,7 @@
    const nav=document.getElementById('nav');
    if(nav&&!document.getElementById('mtechWebsiteNav')){const a=document.createElement('a');a.id='mtechWebsiteNav';a.className='navbtn';a.href=url;a.target='_blank';a.rel='noopener';a.textContent='M-TECH Website';nav.appendChild(a)}
    addNav(nav,'mtechMarketplaceNav','Technology Marketplace','marketplace.html');
+   addNav(nav,'mtechStoreGuideNav','Store Setup Guide','marketplace-store-guide.html');
    addNav(nav,'mtechTrustCenterNav','Trust & Assurance Center','trust-center.html');
    addNav(nav,'mtechSponsorsNavLite','Sponsors & Partners','sponsors-partners.html');
    const actions=document.querySelector('.topbar .actions');
