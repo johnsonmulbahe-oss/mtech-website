@@ -54,6 +54,9 @@
    if(nav&&!document.getElementById('mtechEducationCenterLink')){
      const a=document.createElement('a');a.id='mtechEducationCenterLink';a.className='navbtn';a.href='education-center.html';a.textContent='Education & Technology Center';nav.appendChild(a);
    }
+   if(nav&&!document.getElementById('mtechPresentationCenterLink')){
+     const a=document.createElement('a');a.id='mtechPresentationCenterLink';a.className='navbtn';a.href='presentation-center.html';a.textContent='M-TECH Presentation Center';nav.appendChild(a);
+   }
    if(nav&&!document.getElementById('mtechQrPermissionLink')){
      const a=document.createElement('a');a.id='mtechQrPermissionLink';a.className='navbtn';a.href='qr-permission-center.html';a.textContent='QR Permission & Outreach Center';nav.appendChild(a);
    }
@@ -69,6 +72,9 @@
    const actions=document.querySelector('.topbar .actions');
    if(actions&&!document.getElementById('mtechEducationTop')){
      const a=document.createElement('a');a.id='mtechEducationTop';a.className='btn alt small';a.href='education-center.html';a.textContent='Education';actions.insertBefore(a,actions.firstChild);
+   }
+   if(actions&&!document.getElementById('mtechPresentationTop')){
+     const a=document.createElement('a');a.id='mtechPresentationTop';a.className='btn alt small';a.href='presentation-center.html';a.textContent='Presentation';actions.insertBefore(a,actions.firstChild);
    }
    if(actions&&!document.getElementById('mtechOutreachTop')){
      const a=document.createElement('a');a.id='mtechOutreachTop';a.className='btn alt small';a.href='qr-permission-center.html';a.textContent='QR Outreach';actions.insertBefore(a,actions.firstChild);
