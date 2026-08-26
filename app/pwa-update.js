@@ -15,17 +15,13 @@
  if(!document.querySelector('link[data-mtech-mobile-fix]')){
    const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-nav-fix.css?v=21';l.dataset.mtechMobileFix='1';document.head.appendChild(l);
  }
- // Keep content and floating controls clear of iPhone/Safari bottom UI.
+ // Keep content and the fixed Back control clear of iPhone/Safari bottom UI.
  if(!document.querySelector('link[data-mtech-safe-area]')){
-   const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-safe-area.css?v=29';l.dataset.mtechSafeArea='1';document.head.appendChild(l);
+   const l=document.createElement('link');l.rel='stylesheet';l.href='mobile-safe-area.css?v=31';l.dataset.mtechSafeArea='1';document.head.appendChild(l);
  }
- // Make the mobile floating Back button movable/collapsible.
- if(!document.querySelector('script[data-mtech-mobile-dock]')){
-   const s=document.createElement('script');s.src='mobile-control-dock.js?v=29';s.defer=true;s.dataset.mtechMobileDock='1';document.head.appendChild(s);
- }
- // Make M-TECH AI and connection controls movable/compact so they never block records.
+ // Only M-TECH AI and connection controls are movable/compact. Back remains fixed.
  if(!document.querySelector('script[data-mtech-ai-float-controls]')){
-   const s=document.createElement('script');s.src='ai-floating-controls.js?v=30';s.defer=true;s.dataset.mtechAiFloatControls='1';document.head.appendChild(s);
+   const s=document.createElement('script');s.src='ai-floating-controls.js?v=31';s.defer=true;s.dataset.mtechAiFloatControls='1';document.head.appendChild(s);
  }
  // CEO-only permanent delete controls for management records.
  if(!document.querySelector('script[data-mtech-ceo-delete]')){
