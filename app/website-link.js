@@ -2,6 +2,7 @@
 (function(){
  const FALLBACK='https://johnsonmulbahe-oss.github.io/mtech-website/';
  if(!document.querySelector('script[data-mtech-terms-gate]')){const s=document.createElement('script');s.src='terms-gate.js?v=42';s.defer=true;s.dataset.mtechTermsGate='1';document.head.appendChild(s)}
+ if(!document.querySelector('script[data-mtech-module-consent]')){const s=document.createElement('script');s.src='module-consent-gate.js?v=44';s.defer=true;s.dataset.mtechModuleConsent='1';document.head.appendChild(s)}
  async function getUrl(){
    try{
      if(globalThis.SB){
