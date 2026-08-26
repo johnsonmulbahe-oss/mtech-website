@@ -4,7 +4,7 @@
     const login=document.getElementById('loginView');
     const email=document.getElementById('loginEmail');
     const msg=document.getElementById('loginMsg');
-    if(!login||!email||!globalThis.SB||document.getElementById('mtechForgotPassword'))return;
+    if(!login||!email||typeof SB==='undefined'||document.getElementById('mtechForgotPassword'))return;
     const actions=login.querySelector('.actions');
     if(!actions)return;
     const b=document.createElement('button');
