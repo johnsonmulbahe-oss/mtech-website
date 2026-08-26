@@ -1,0 +1,1 @@
+(()=>{const URL='https://vsirepejlaytbqhhikev.supabase.co';const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJIUzI1NiIsInJlZiI6InZzaXJlcGVqbGF5dGJxaGhpa2V2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTYyOTI4MjQsImV4cCI6MjA3MTg2ODgyNH0.bH84qAKmvmoVwzheWMoxmlhAWdxVAy0GSJ5lvKGMyC0';})();
