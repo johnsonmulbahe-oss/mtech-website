@@ -2,22 +2,22 @@
   "name": "M-TECH Management System",
   "short_name": "M-TECH",
   "description": "Mulbah Technology Solutions Liberia Ltd. business management system",
-  "id": "/mtech-website/app/management.html",
-  "start_url": "/mtech-website/app/management.html",
-  "scope": "/mtech-website/",
+  "id": "/app/management.html",
+  "start_url": "/app/management.html",
+  "scope": "/",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#040711",
   "theme_color": "#0c1120",
   "icons": [
     {
-      "src": "/mtech-website/icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/mtech-website/icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
