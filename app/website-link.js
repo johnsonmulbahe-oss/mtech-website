@@ -1,6 +1,6 @@
 // M-TECH public website and core module shortcuts; public website URL is read from editable company_profile settings.
 (function(){
- const FALLBACK='https://johnsonmulbahe-oss.github.io/mtech-website/';
+ const FALLBACK=location.origin+'/';
  if(!document.querySelector('script[data-mtech-terms-gate]')){const s=document.createElement('script');s.src='terms-gate.js?v=42';s.defer=true;s.dataset.mtechTermsGate='1';document.head.appendChild(s)}
  if(!document.querySelector('script[data-mtech-module-consent]')){const s=document.createElement('script');s.src='module-consent-gate.js?v=44';s.defer=true;s.dataset.mtechModuleConsent='1';document.head.appendChild(s)}
  if(!document.querySelector('script[data-mtech-compliance-notify]')){const s=document.createElement('script');s.src='compliance-notifications.js?v=45';s.defer=true;s.dataset.mtechComplianceNotify='1';document.head.appendChild(s)}
