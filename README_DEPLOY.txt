@@ -1,49 +1,69 @@
-M-TECH WEBSITE — DEPLOYMENT NOTES
+M-TECH WEBSITE + APPLICATION — PRODUCTION DEPLOYMENT NOTES
 
 Business: M-TECH / Mulbah Technology Solution Liberia Ltd.
 CEO & Founder: Mulbah E. Johnson
 Contacts: 0773330241 | 0555387355
 Email: mtechsolution2005@gmail.com
 
-This website is a completely independent static site. It does not connect to FEMELTZ or any ERP system.
+ARCHITECTURE
+This repository now contains more than a static marketing website. It includes:
+- Main public M-TECH website at /
+- Customer application area at /app/
+- Secure administration area at /admin/
+- Cloudflare Pages Functions under /functions/api/
+- Admin authentication/session/management APIs
+- Customer request workflows that also use the configured M-TECH Supabase backend
 
-FREE CLOUDFLARE PAGES DEPLOYMENT
-1. Sign in to the Cloudflare account created specifically for M-TECH.
-2. Go to Workers & Pages > Create > Pages.
-3. Choose Direct Upload (or connect a dedicated M-TECH GitHub repository).
-4. Upload the contents of this website folder.
-5. Cloudflare will provide a free address ending in .pages.dev.
-6. Later, a custom domain can be attached without rebuilding the site.
+PRODUCTION HOSTING REQUIREMENT
+Use Cloudflare Pages (or an equivalent platform that executes the Functions runtime). GitHub remains the source-control repository, but GitHub Pages alone is NOT sufficient for the full application because it cannot execute /functions/api routes.
 
-IMPORTANT
-- Keep the M-TECH Cloudflare/GitHub accounts separate from FEMELTZ accounts.
-- No backend is required for the current website.
-- The service request form opens WhatsApp; it does not store customer data.
-- The Facebook QR code supplied by the owner points to:
-  https://www.facebook.com/profile.php?id=61572386053649
+CLOUDFLARE PAGES DEPLOYMENT
+1. Sign in to the Cloudflare account dedicated to M-TECH.
+2. Go to Workers & Pages and create/connect a Pages project.
+3. Connect GitHub repository: johnsonmulbahe-oss/mtech-website.
+4. Production branch: main.
+5. For this static + Functions repository, do not set an unnecessary framework build command unless Cloudflare requires one for the selected project mode.
+6. Deploy the repository root as the site output.
+7. Configure the required Cloudflare bindings/environment values before certifying Admin features.
+8. Confirm the D1 database binding is named DB because the Admin Functions read env.DB.
+9. Verify all required database tables/migrations and administrator setup have been completed.
+10. Attach the approved custom domain only after the pages.dev deployment passes certification.
 
+PRIMARY ROUTES
+- /                 Main M-TECH website
+- /app/             Customer application entry
+- /admin/           Secure Admin entry (redirects to login)
+- /admin/login      Admin sign-in
+- /admin/dashboard  Admin dashboard
+- /admin/setup      Initial secure administrator setup
 
-Universal device support (v3.4 pre-launch candidate):
-- Responsive layouts for phones, tablets, laptops, desktops and wide displays.
-- iPhone/iPad safe-area support.
-- All primary navigation and header contact buttons remain visible at every screen width.
-- Touch-friendly controls and 16px form inputs on mobile.
-- Web app manifest retained for supported browser metadata and app-like presentation.
+ROUTING
+The repository includes _redirects so Cloudflare Pages resolves the clean Admin and application routes correctly.
 
+SECURITY
+- Keep the M-TECH Cloudflare/GitHub accounts separate from unrelated businesses and systems.
+- Never place Admin passwords, D1 secrets, service-role keys or private API credentials in public HTML/JavaScript or repository documentation.
+- Admin authentication uses server-side Functions, HttpOnly Secure cookies and the DB binding.
+- Admin pages are marked noindex/nofollow.
+- Complete production verification of authentication, authorization, database bindings and session expiry before giving staff access.
 
-PRE-LAUNCH QA STATUS (v3.4)
-- Main HTML structure checked: no duplicate IDs.
-- Internal navigation anchors checked: no broken section links.
-- Local CSS, JavaScript and image references checked: all referenced files are present.
-- Form labels/fields checked for matching IDs.
-- All website images include alt text.
-- JavaScript syntax checked successfully.
-- Official M-TECH contacts verified in the site: 0773330241 | 0555387355 | mtechsolution2005@gmail.com.
-- Leadership contact numbers remain separate and correctly labeled.
-- Security headers retained (CSP, frame protection, content-type protection, referrer policy and restricted permissions).
-- Public client references remain limited to the approved Client Trust section / approved client strip.
-- Intentionally excluded non-public/unclear portfolio assets removed from the release package.
-- M-TECH remains a standalone website and does not connect to FEMELTZ ERP or any FEMELTZ system.
+DEVICE SUPPORT
+- Responsive layouts for phones, tablets, laptops, desktops, foldables and wide displays.
+- iPhone/iPad safe-area and app-like presentation support where implemented.
+- Touch-friendly controls and mobile form sizing are retained.
 
-NOT YET LAUNCHED
-This package is the pre-launch release candidate. Publish only after explicit final approval.
+PUBLIC WEBSITE QA BASELINE
+- Main HTML structure checked for duplicate IDs in the prior QA pass.
+- Internal navigation anchors and local asset references were checked in the prior QA pass.
+- Official M-TECH contacts remain 0773330241 | 0555387355 | mtechsolution2005@gmail.com.
+
+CURRENT STATUS — v36 DEPLOYMENT CORRECTION
+- Source repository confirmed active on branch main.
+- Customer /app entry exists.
+- Admin frontend exists.
+- Admin backend Functions exist.
+- /admin/ entry redirect added.
+- Cloudflare _redirects added for clean Admin/app routes.
+- Full production launch still requires a working Cloudflare Pages project with required bindings and live-route certification.
+
+Do not describe the complete application as successfully launched until those production checks pass.
