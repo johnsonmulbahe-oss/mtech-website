@@ -1,0 +1,7 @@
+/admin /admin/login.html 302
+/admin/ /admin/login.html 302
+/admin/login /admin/login.html 200
+/admin/dashboard /admin/dashboard.html 200
+/admin/setup /admin/setup.html 200
+/app /app/index.html 200
+/app/ /app/index.html 200
